@@ -1,0 +1,53 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap-theme.css" rel="stylesheet" />
+    <title>System Biblioteczny</title>
+    <style>
+        .btn a {
+            color: white;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+@* Pingwinki xD
+
+
+    <object type="application/x-shockwave-flash" style="outline:none;" data="http://cdn.abowman.com/widgets/penguins/penguins.swf?"
+            width="300" height="200">
+        <param name="movie" value="http://cdn.abowman.com/widgets/penguins/penguins.swf?"><param name="AllowScriptAccess"
+                                                                                                         value="always"><param name="wmode"
+                                                                                                                                       value="transparent"><param name="scale" value="noscale" /><param name="salign" value="tl" />
+    </object>
+
+
+    *@
+    <div class="panel panel-success">
+        <div class="panel-heading text-center">
+            <h4>System Biblioteczny</h4>
+            <h5>Zapraszamy do przesłania zgłoszenia.</h5>
+        </div>
+        <div class="panel-body text-center">
+           
+            <div class="btn btn-success">
+                @Html.ActionLink("Zaloguj się", "LoginForm")
+            </div>
+
+            <div class="btn btn-success">
+                @Html.ActionLink("Wyślij Zgłoszenie", "AddFailureForm")
+            </div>
+
+
+        </div>
+  </div>
+</body>
+</html>

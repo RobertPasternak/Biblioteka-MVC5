@@ -1,0 +1,85 @@
+﻿@model List<Biblioteka.Models.UsersData>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap-theme.css" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Panel Admina</title>
+    <style>
+        .btn a {
+            color: white;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="panel panel-success">
+        <div class="panel-heading text-center">
+            <h4>Panel Admina</h4>
+        </div>
+
+        <div class="lead panel-body">
+            @Html.ValidationSummary()
+
+
+            <table class="table table-bordered .table-striped">
+                <tr>
+                    <th>ID</th>
+                    <th>Login</th>
+                    <th>Przywileje</th>
+                    <th>Akcje</th>
+                </tr>
+                @foreach (var user in Model)
+                {
+                    <tr>
+                        <td>@user.Id</td>
+                        <td>@user.Login</td>
+                        <td>
+                            @if (@user.Privileges == "Administrator")
+                            {
+                                <p>Administrator</p>
+                            }
+                            else if (@user.Privileges == "Moderator")
+                            {
+                                <p>Moderator</p>
+                            }
+                            else
+                            {
+                            <p>Błędna Wartość</p>
+                            }
+                        </td>
+                        <td>
+                            @*Html.ActionLink("Edit", "Edit", new { id=item.Id })*@
+
+                            <div class="btn btn-danger ">
+                                @Html.ActionLink("Usuń", "DeleteUserData", new { id = user.Id })
+                            </div>
+
+                        </td>
+                    </tr>
+                }
+            </table>
+
+
+
+
+
+            <div class="text-center">
+                <div class="btn btn-success ">
+                    @Html.ActionLink("Wyloguj się", "Logout")
+                </div>
+                <div class="btn btn-success">
+                    @Html.ActionLink("Dodaj Użytkownika", "AddUserForm")
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,112 @@
+﻿@model Biblioteka.Models.AddFailure
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap-theme.css" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" type="text/css" href="~/Content/Styles.css" />
+    <title>Zgłoszenie Awarii</title>
+    <style>
+        .btn a {
+            color: white;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="panel panel-success">
+        <div class="panel-heading text-center">
+            <h4>Zgłoszenie Awarii</h4>
+        </div>
+
+        <div class="panel-body">
+            @using (Html.BeginForm())
+            {
+                @Html.ValidationSummary()
+
+                <div class="form-group">
+                    <label>Data Wystąpienia:</label>
+                    @Html.TextBoxFor(x => x.EntryDate, new { @class = "form-control" })
+                </div>
+                <div class="form-group">
+                    <label>Temat:</label>
+                    @Html.TextBoxFor(x => x.Topic, new {@class = "form-control"})
+                </div>
+                <div class="form-group">
+                    <label>Opis:</label>
+                    @Html.TextBoxFor(x => x.Description, new { @class = "form-control" })
+                </div>
+                <div class="form-group">
+                    <label>Piętro:</label>
+                    @Html.DropDownListFor(x => x.Floor, new[]
+                    {
+                        new SelectListItem() { Text = "0", Value = "0"},
+                         new SelectListItem() { Text = "1", Value = "1"},
+                         new SelectListItem() { Text = "2", Value = "2"}
+                    }, "Wybierz piętro", new { @class = "form-control" })
+                    
+                </div>
+                <div class="form-group">
+                    <label>Strefa:</label>
+                    @Html.DropDownListFor(x => x.Area, new[]
+                    {
+                        new SelectListItem() { Text = "Rawa", Value = "Rawa"},
+                         new SelectListItem() { Text = "Chełkowski", Value = "Chełkowski"},
+                         new SelectListItem() { Text = "Dydaktyczna", Value = "Dydaktyczna"},
+                         new SelectListItem() { Text = "Windy", Value = "Windy"},
+                         new SelectListItem() { Text = "Czytelnia", Value = "Czytelnia"},
+                         new SelectListItem() { Text = "Kabiny-Czytelnia", Value = "Kabiny-Czytelnia"},
+                         new SelectListItem() { Text = "Kabiny-Mediateka", Value = "Kabiny-Mediateka"},
+                         new SelectListItem() { Text = "Mediateka", Value = "Mediateka"},
+                         new SelectListItem() { Text = "Akwarium", Value = "Akwarium"},
+                         new SelectListItem() { Text = "Środek", Value = "Środek"},
+                    }, "Wybierz piętro", new { @class = "form-control" })
+
+
+                </div>
+                <div class="form-group">
+                    <label>Stanowisko:</label>
+                    @Html.TextBoxFor(x => x.Worksite, new {@class = "form-control"})
+                </div>
+
+                <div class="form-group">
+                    <label>Status:</label>
+                    @Html.DropDownListFor(x => x.Status, new[]
+                        {
+                            new SelectListItem() {Text = "Otwarte", Value = bool.TrueString},
+                            new SelectListItem() {Text = "Zamknięte", Value = bool.FalseString}
+                        }, "Wybierz Status", new { @class = "form-control" })
+                </div>
+
+
+
+                @*
+                <div class="form-group">
+                    <label>Przywileje:</label>
+                    @Html.DropDownListFor(x => x.Privileges, new[]
+                    {
+                        new SelectListItem() {Text = "Administratora", Value = "Administrator"},
+                        new SelectListItem() {Text = "Moderatora", Value = "Moderator"}
+                    }, "Wybierz przywileje", new {@class = "form-control"})
+                </div>
+
+                *@
+
+                   
+                <div class="text-center">
+                    <input class="btn btn-success" type="submit" value="Wyślij Zgłoszenie" />
+                    <input class="btn btn-success" type='button' onclick='history.back();' value='Powrót' />
+                </div>
+
+            }
+        </div>
+    </div>
+</body>
+</html>

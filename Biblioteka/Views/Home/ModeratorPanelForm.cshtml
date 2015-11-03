@@ -1,0 +1,89 @@
+﻿@model List<Biblioteka.Models.FailuresData>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap-theme.css" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Panel Moderatora</title>
+    <style>
+        .btn a {
+            color: white;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="panel panel-success">
+        <div class="panel-heading text-center">
+            <h4>Panel Moderatora</h4>
+        </div>
+
+        <div class="lead panel-body">
+            @Html.ValidationSummary()
+
+            <table class="table table-bordered .table-striped">
+                <tr>
+                    <th>ID</th>
+                    <th>Data Zgłoszenia</th>
+                    <th>Temat</th>
+                    <th>Piętro</th>
+                    <th>Strefa</th>
+                    <th>Stanowisko</th>
+                    <th>Status</th>
+                    <th>Akcje</th>
+                </tr>
+                @foreach (var failure in Model)
+                {
+                    <tr>
+                        <td>@failure.Id</td>
+                        <td>@failure.EntryDate</td>
+                        <td>@failure.Topic</td>
+                        <td>@failure.Floor</td>
+                        <td>@failure.Area</td>
+                        <td>@failure.Worksite</td>
+                        <td>
+                            @if (@failure.Status == true)
+                            {
+                                <p>Otwarte</p>
+                            }
+                            else if (@failure.Status == false)
+                            {
+                                <p>Zamknięte</p>
+                            }
+                            else
+                            {
+                                <p>Błędna Wartość</p>
+                            }                        
+                        </td>
+                        <td>
+                            <div class="btn btn-success ">
+                                @Html.ActionLink("Przeglądaj", "BrowseCommentsForm", new { id = failure.Id })
+                            </div>
+                            <div class="btn btn-success ">
+                                @Html.ActionLink("Zmień Status", "ChangeStatusFailureData", new {id = failure.Id, status = failure.Status})
+                            </div>
+                            <div class="btn btn-danger ">
+                                @Html.ActionLink("Usuń", "DeleteFailureData", new { id = failure.Id })
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </table>
+
+            <div class="text-center">
+                <div class="btn btn-success ">
+                    @Html.ActionLink("Wyloguj się", "Logout")
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

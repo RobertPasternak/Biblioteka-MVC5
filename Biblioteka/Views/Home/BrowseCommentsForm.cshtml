@@ -1,0 +1,134 @@
+﻿@model List<Biblioteka.Models.FailuresData>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap-theme.css" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="~/Content/Styles.css" />
+    <title>Przeglądaj Zgłoszenie</title>
+    <style>
+        .btn a {
+            color: white;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="panel panel-success">
+        <div class="panel-heading text-center">
+            <h4>Przeglądaj Zgłoszenie</h4>
+        </div>
+        <div class="panel-body">
+            @using (Html.BeginForm())
+            {
+                @Html.ValidationSummary()
+
+                <table class="table table-bordered .table-striped">
+                    <tr>
+                        <th>ID</th>
+                        <th>Data Zgłoszenia</th>
+                        <th>Temat</th>
+                        <th>Piętro</th>
+                        <th>Strefa</th>
+                        <th>Stanowisko</th>
+                        <th>Status</th>
+                        <th>Akcje</th>
+                    </tr>
+                    @foreach (var failure in Model)
+                    {
+                  @*Sprawdzenie, czy wartość id nie jest wartością domyślną dla komentarzy (-1) (Przydałoby się bardziej eleganckie rozwiązanie tego)*@
+                    if (@failure.Id != -1)
+                    {
+
+                            <tr>
+                                <td>@failure.Id</td>
+                                <td>@failure.EntryDate</td>
+                                <td>@failure.Topic</td>
+                                <td>@failure.Floor</td>
+                                <td>@failure.Area</td>
+                                <td>@failure.Worksite</td>
+                                <td>
+                                    @if (@failure.Status == true)
+                                    {
+                                        <p>Otwarte</p>
+                                    }
+                                    else if (@failure.Status == false)
+                                    {
+                                        <p>Zamknięte</p>
+                                    }
+                                    else
+                                    {
+                                        <p>Błędna Wartość</p>
+                                    }
+                                </td>
+                                <td>
+                                    <div class="btn btn-success">
+                                        @Html.ActionLink("Dodaj Komentarz", "AddCommentForm", new { id = failure.Id })
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    }
+                </table>
+
+                <table class="table table-bordered .table-striped">
+                    <tr>
+                        <th>Opis</th>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            @foreach (var failure in Model)
+                            {
+                                @failure.Description
+                            }
+                        </td>
+                    </tr>
+
+                </table>
+
+
+
+                <table class="table table-bordered .table-striped">
+                    <tr>
+                        <th>Komentarze</th>
+                    </tr>
+
+
+                    @foreach (var failure in Model)
+                    {
+                    @*Sprawdzenie, czy wartość id jest wartością domyślną dla komentarzy (-1) (Przydałoby się bardziej eleganckie rozwiązanie tego)*@
+                    if (@failure.Id == -1)
+                    {
+                            <tr>
+                                <td>
+                                    @failure.Comment
+                                </td>
+                            </tr>
+                        }
+                    }
+
+
+                </table>
+
+
+
+                        <div class="text-center">
+                            <div class="btn btn-success">
+                                @Html.ActionLink("Powrót", "ModeratorPanelForm")
+                            </div>
+                        </div>
+            }
+
+        </div>
+    </div>
+</body>
+
+</html>
